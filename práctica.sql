@@ -92,12 +92,20 @@ INNER JOIN Marca ON Autos.Id_marca = Marca.Id_marca
 INNER JOIN Color ON Autos.Id_color = Color.Id_color
 INNER JOIN Origen ON Autos.Id_origen = Origen.Id_origen
 ORDER BY Modelo ASC;
--- Ver todas las marcas de autos ordenador alfabéticamente
+-- Ver todas las marcas de autos ordenados alfabéticamente
 SELECT Nombre FROM Marca ORDER BY Nombre ASC;
--- Ver todos modelos
+-- Ver todos los modelos y marcas
+SELECT Modelo, Marca.Nombre From Autos 
+INNER JOIN Marca ON Autos.Id_marca = Marca.Id_marca;
+-- Ver todos modelos disponibles
 SELECT Modelo FROM Autos;
 -- Ver los 3 Autos más antiguos
-SELECT * FROM Autos ORDER BY Year ASC LIMIT 3;
+SELECT Modelo, Year, Marca.Nombre, Color.Nombre, Origen.Pais, Condicion 
+FROM Autos 
+INNER JOIN Origen ON Autos.Id_origen = Origen.Id_origen 
+INNER JOIN Marca ON Autos.Id_marca = Marca.Id_marca
+INNER JOIN Color ON Autos.Id_color = Color.Id_color
+ORDER BY Year ASC LIMIT 3;
 -- Ver todos los autos fabricados en USA
 SELECT Modelo, Year, Marca.Nombre, Color.Nombre, Origen.Pais, Condicion 
 FROM Autos 
@@ -112,10 +120,35 @@ INNER JOIN Origen ON Autos.Id_origen = Origen.Id_origen
 INNER JOIN Marca ON Autos.Id_marca = Marca.Id_marca
 INNER JOIN Color ON Autos.Id_color = Color.Id_color
 WHERE Marca.Nombre = 'Dodge';
+-- Ver todos los autos azules
+SELECT Modelo, Year, Marca.Nombre, Color.Nombre, Origen.Pais, Condicion 
+FROM Autos 
+INNER JOIN Origen ON Autos.Id_origen = Origen.Id_origen 
+INNER JOIN Marca ON Autos.Id_marca = Marca.Id_marca
+INNER JOIN Color ON Autos.Id_color = Color.Id_color
+WHERE Color.Nombre = 'Negro';
 -- Ver los 3 autos de Dodge más nuevos
 
--- Ver todos los autos azules
+SELECT Modelo, Year, Marca.Nombre, Color.Nombre, Origen.Pais, Condicion 
+FROM Autos 
+INNER JOIN Origen ON Autos.Id_origen = Origen.Id_origen 
+INNER JOIN Marca ON Autos.Id_marca = Marca.Id_marca
+INNER JOIN Color ON Autos.Id_color = Color.Id_color
+WHERE Marca.Nombre = 'Dodge' IN (SELECT * FROM Autos ORDER BY Year DESC LIMIT 3);
 
+SELECT * FROM Autos ORDER BY Year DESC LIMIT 3;
 -- Ver todos los autos negros de la marca Chevrolet
-
--- Ver todos los modelos y marca
+SELECT Modelo, Year, Marca.Nombre, Color.Nombre, Origen.Pais, Condicion 
+FROM Autos 
+INNER JOIN Origen ON Autos.Id_origen = Origen.Id_origen 
+INNER JOIN Marca ON Autos.Id_marca = Marca.Id_marca
+INNER JOIN Color ON Autos.Id_color = Color.Id_color
+WHERE Marca.Nombre = 'Chevrolet' IN 
+(
+SELECT Modelo, Year, Marca.Nombre, Color.Nombre, Origen.Pais, Condicion 
+FROM Autos 
+INNER JOIN Origen ON Autos.Id_origen = Origen.Id_origen 
+INNER JOIN Marca ON Autos.Id_marca = Marca.Id_marca
+INNER JOIN Color ON Autos.Id_color = Color.Id_color
+WHERE Color.Nombre = 'Negro'
+);
