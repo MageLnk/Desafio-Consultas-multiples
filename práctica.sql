@@ -84,3 +84,38 @@ INSERT INTO Autos (Id_color, Id_marca, Id_origen, Condicion, Year, Modelo) VALUE
 INSERT INTO Autos (Id_color, Id_marca, Id_origen, Condicion, Year, Modelo) VALUES (5, 12, 4, 'Normal', 2015, 'Modelo 2');
 INSERT INTO Autos (Id_color, Id_marca, Id_origen, Condicion, Year, Modelo) VALUES (4, 12, 5, 'Perfecta', 2011, 'Modelo 6');
 INSERT INTO Autos (Id_color, Id_marca, Id_origen, Condicion, Year, Modelo) VALUES (8, 4, 6, 'Bien', 2012, 'Modelo 6');
+
+-- Ver todos los autos con toda su información ordenados por modelo
+SELECT Modelo, Year, Marca.Nombre, Color.Nombre, Origen.Pais, Condicion 
+FROM Autos 
+INNER JOIN Marca ON Autos.Id_marca = Marca.Id_marca
+INNER JOIN Color ON Autos.Id_color = Color.Id_color
+INNER JOIN Origen ON Autos.Id_origen = Origen.Id_origen
+ORDER BY Modelo ASC;
+-- Ver todas las marcas de autos ordenador alfabéticamente
+SELECT Nombre FROM Marca ORDER BY Nombre ASC;
+-- Ver todos modelos
+SELECT Modelo FROM Autos;
+-- Ver los 3 Autos más antiguos
+SELECT * FROM Autos ORDER BY Year ASC LIMIT 3;
+-- Ver todos los autos fabricados en USA
+SELECT Modelo, Year, Marca.Nombre, Color.Nombre, Origen.Pais, Condicion 
+FROM Autos 
+INNER JOIN Origen ON Autos.Id_origen = Origen.Id_origen 
+INNER JOIN Marca ON Autos.Id_marca = Marca.Id_marca
+INNER JOIN Color ON Autos.Id_color = Color.Id_color
+WHERE Origen.Pais = 'Usa';
+-- Ver todos los autos de marca Dodge
+SELECT Modelo, Year, Marca.Nombre, Color.Nombre, Origen.Pais, Condicion 
+FROM Autos 
+INNER JOIN Origen ON Autos.Id_origen = Origen.Id_origen 
+INNER JOIN Marca ON Autos.Id_marca = Marca.Id_marca
+INNER JOIN Color ON Autos.Id_color = Color.Id_color
+WHERE Marca.Nombre = 'Dodge';
+-- Ver los 3 autos de Dodge más nuevos
+
+-- Ver todos los autos azules
+
+-- Ver todos los autos negros de la marca Chevrolet
+
+-- Ver todos los modelos y marca
